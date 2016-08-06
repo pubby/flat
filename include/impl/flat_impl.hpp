@@ -238,7 +238,7 @@ public:
     const_iterator find(key_type const& key) const
     {
         const_iterator it = self()->lower_bound(key);
-        if(it == self()->end() || self()->key_comp()(key, it->first))
+        if(it == self()->end() || self()->value_comp()(key, *it))
             return self()->end();
         return it;
     }
@@ -246,7 +246,7 @@ public:
     iterator find(key_type const& key)
     {
         iterator it = self()->lower_bound(key);
-        if(it == self()->end() || self()->key_comp()(key, it->first))
+        if(it == self()->end() || self()->value_comp()(key, *it))
             return self()->end();
         return it;
     }
@@ -333,7 +333,7 @@ public:
     const_iterator find(K const& key) const
     {
         const_iterator it = self()->lower_bound(key);
-        if(it == self()->end() || self()->key_comp()(key, it->first))
+        if(it == self()->end() || self()->value_comp()(key, *it))
             return self()->end();
         return it;
     }
@@ -342,7 +342,7 @@ public:
     iterator find(K const& key)
     {
         iterator it = self()->lower_bound(key);
-        if(it == self()->end() || self()->key_comp()(key, it->first))
+        if(it == self()->end() || self()->value_comp()(key, *it))
             return self()->end();
         return it;
     }
