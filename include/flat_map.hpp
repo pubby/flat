@@ -56,9 +56,7 @@ public:
     }
 
     mapped_type& operator[](key_type const& key)
-    {
-        return self()->try_emplace(key).first.underlying->second;
-    }
+        { return self()->try_emplace(key).first.underlying->second; }
 
     mapped_type& operator[](key_type&& key)
     {
@@ -72,6 +70,16 @@ public:
 
     std::pair<iterator, bool> insert(value_type&& value)
         { return insert_(std::move(value)); }
+
+    template<class InputIt>
+    void insert(InputIt first, InputIt last, delay_sort_t)
+    {
+        this->ds_insert_(first, last);
+        auto it = std::unique(
+            self()->container.begin(), self()->container.end(), 
+            impl::eq_comp<value_compare>{value_comp()});
+        self()->container.erase(it, self()->container.end());
+    }
 
     template<typename M>
     std::pair<iterator, bool> insert_or_assign(key_type const& key, M&& obj)
@@ -217,13 +225,8 @@ class flat_map
 : public impl::flat_map_base<flat_map<Container, Compare>, 
     typename Container::value_type::first_type, Container, Compare>
 {
-    using D = flat_map;
-    using Key = typename Container::value_type::first_type;
-public:
-#include "impl/container_traits.hpp"
-    using mapped_type = typename value_type::second_type;
-
-    Container container;
+#define FLATNAME flat_map
+#include "impl/class_def.hpp"
 };
 
 template<typename Key, typename T, typename Compare = std::less<void>>

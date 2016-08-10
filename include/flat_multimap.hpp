@@ -41,6 +41,10 @@ public:
         return self()->container.insert(it.underlying, std::move(value));
     }
 
+    template<class InputIt>
+    void insert(InputIt first, InputIt last, delay_sort_t)
+        { this->ds_insert_(first, last); }
+
     size_type erase(key_type const& key)
     {
         auto it_pair = self()->equal_range(key);
@@ -102,13 +106,8 @@ class flat_multimap
 : public impl::flat_multimap_base<flat_multimap<Container, Compare>, 
     typename Container::value_type::first_type, Container, Compare>
 {
-    using D = flat_multimap;
-    using Key = typename Container::value_type::first_type;
-public:
-#include "impl/container_traits.hpp"
-    using mapped_type = typename value_type::second_type;
-
-    Container container;
+#define FLATNAME flat_multimap
+#include "impl/class_def.hpp"
 };
 
 template<typename Key, typename T, typename Compare = std::less<void>>

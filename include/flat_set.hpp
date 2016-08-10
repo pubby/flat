@@ -34,6 +34,16 @@ public:
     std::pair<iterator, bool> insert(value_type&& value)
         { return insert_(std::move(value)); }
 
+    template<class InputIt>
+    void insert(InputIt first, InputIt last, delay_sort_t)
+    {
+        this->ds_insert_(first, last);
+        auto it = std::unique(
+            self()->container.begin(), self()->container.end(), 
+            impl::eq_comp<value_compare>{value_comp()});
+        self()->container.erase(it, self()->container.end());
+    }
+
     size_type erase(key_type const& key)
     {
         const_iterator it = self()->find(key);
@@ -110,12 +120,8 @@ class flat_set
 : public impl::flat_set_base<flat_set<Container, Compare>, 
     typename Container::value_type, Container, Compare>
 {
-    using D = flat_set;
-    using Key = typename Container::value_type;
-public:
-#include "impl/container_traits.hpp"
-
-    Container container;
+#define FLATNAME flat_set
+#include "impl/class_def.hpp"
 };
 
 template<typename T, typename Compare = std::less<void>>

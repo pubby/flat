@@ -12,7 +12,24 @@
 #include <vector>
 
 namespace fc {
+
+struct delay_sort_t {};
+constexpr delay_sort_t delay_sort = {};
+
+struct container_construct_t {};
+constexpr container_construct_t container_construct = {};
+
 namespace impl {
+
+template<typename Comp>
+struct eq_comp
+{
+    template<typename A, typename B>
+    bool operator()(A const& lhs, B const& rhs)
+        { return !comp(lhs, rhs) && !comp(rhs, lhs); }
+    Comp comp;
+};
+
 
 template<typename It>
 struct dummy_iterator
@@ -35,7 +52,7 @@ public:
     using value_type = typename traits::value_type const;
     using pointer = value_type*;
     using reference = value_type&;
-    using iterator_category = std::forward_iterator_tag;
+    using iterator_category = std::random_access_iterator_tag;
 
     flat_iterator() = default;
     flat_iterator(flat_iterator const&) = default;
@@ -133,7 +150,7 @@ class flat_container_base
     D* self() { return static_cast<D*>(this); }
 public:
     using key_compare = Compare;
-    key_compare key_comp() const { return key_compare(); }
+    key_compare key_comp() const { return self()->comp; }
 
     // Iterators
 
@@ -204,6 +221,9 @@ public:
 
     void insert(std::initializer_list<value_type> ilist)
         { self()->insert(ilist.begin(), ilist.end()); }
+
+    void insert(std::initializer_list<value_type> ilist, delay_sort_t d)
+        { self()->insert(ilist.begin(), ilist.end(), d); }
 
     template<typename... Args>
     auto emplace(Args&&... args)
@@ -300,6 +320,24 @@ private:
         using std::swap;
         return noexcept(swap(*static_cast<Container*>(nullptr),
                              *static_cast<Container*>(nullptr)));
+    }
+
+protected:
+    template<class InputIt>
+    void ds_insert_(InputIt first, InputIt last)
+    {
+        size_type const i = self()->size();
+        for(InputIt it = first; it != last; ++it)
+            self()->container.push_back(*it);
+        std::sort(
+            self()->container.begin()+i,
+            self()->container.end(),
+            self()->value_comp());
+        std::inplace_merge(
+            self()->container.begin(), 
+            self()->container.begin()+i,
+            self()->container.end());
+        // Note: Not calling unique here. Do it in the caller.
     }
 };
 

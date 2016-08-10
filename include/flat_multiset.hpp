@@ -40,6 +40,10 @@ public:
         return self()->container.insert(it.underlying, std::move(value));
     }
 
+    template<class InputIt>
+    void insert(InputIt first, InputIt last, delay_sort_t)
+        { this->ds_insert_(first, last); }
+
     size_type erase(key_type const& key)
     {
         auto it_pair = self()->equal_range(key);
@@ -99,12 +103,8 @@ class flat_multiset
 : public impl::flat_multiset_base<flat_multiset<Container, Compare>, 
     typename Container::value_type, Container, Compare>
 {
-    using D = flat_multiset;
-    using Key = typename Container::value_type;
-public:
-#include "impl/container_traits.hpp"
-
-    Container container;
+#define FLATNAME flat_multiset
+#include "impl/class_def.hpp"
 };
 
 template<typename T, typename Compare = std::less<void>>
