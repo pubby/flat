@@ -1,3 +1,7 @@
+// Copyright Pubby 2016
+// Distributed under the Boost Software License, Version 1.0.
+// http://www.boost.org/LICENSE_1_0.txt
+
 private:
     using D = FLATNAME;
     using Key = typename Container::value_type;
