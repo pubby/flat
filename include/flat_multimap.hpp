@@ -107,6 +107,7 @@ class flat_multimap
     typename Container::value_type::first_type, Container, Compare>
 {
 #define FLATNAME flat_multimap
+#define FLATKEY typename Container::value_type::first_type
 #include "impl/class_def.hpp"
 };
 

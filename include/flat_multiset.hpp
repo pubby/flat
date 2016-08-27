@@ -104,6 +104,7 @@ class flat_multiset
     typename Container::value_type, Container, Compare>
 {
 #define FLATNAME flat_multiset
+#define FLATKEY typename Container::value_type
 #include "impl/class_def.hpp"
 };
 

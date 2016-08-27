@@ -226,6 +226,7 @@ class flat_map
     typename Container::value_type::first_type, Container, Compare>
 {
 #define FLATNAME flat_map
+#define FLATKEY typename Container::value_type::first_type
 #include "impl/class_def.hpp"
 };
 

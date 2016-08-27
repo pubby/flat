@@ -4,7 +4,7 @@
 
 private:
     using D = FLATNAME;
-    using Key = typename Container::value_type;
+    using Key = FLATKEY;
 public:
 #include "container_traits.hpp"
 
@@ -58,3 +58,4 @@ private:
     Compare comp;
 
 #undef FLATNAME
+#undef FLATKEY

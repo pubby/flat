@@ -121,6 +121,7 @@ class flat_set
     typename Container::value_type, Container, Compare>
 {
 #define FLATNAME flat_set
+#define FLATKEY typename Container::value_type
 #include "impl/class_def.hpp"
 };
 
