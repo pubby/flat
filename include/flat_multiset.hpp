@@ -72,19 +72,7 @@ class flat_multiset_base<D, Key, Container, Compare,
     D const* self() const { return static_cast<D const*>(this); }
     D* self() { return static_cast<D*>(this); }
 public:
-
-    using B::insert;
     using B::count;
-
-    // Modifiers
-    
-    template<class P>
-    iterator insert(P&& value)
-    {
-        iterator it = self()->upper_bound(value);
-        return self()->container.insert(it.underlying, 
-                                        std::forward<P>(value));
-    }
 
     // Lookup
 

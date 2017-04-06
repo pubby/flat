@@ -85,24 +85,7 @@ class flat_set_base<D, Key, Container, Compare,
     D const* self() const { return static_cast<D const*>(this); }
     D* self() { return static_cast<D*>(this); }
 public:
-
-    using B::insert;
     using B::count;
-
-    // Modifiers
-    
-    template<class P>
-    std::pair<iterator, bool> insert(P&& value)
-    {
-        iterator it = self()->lower_bound(value);
-        if(it == self()->end() || self()->value_comp()(value, *it))
-        {
-            it = self()->container.insert(
-                it.underlying, std::forward<P>(value));
-            return std::make_pair(it, true);
-        }
-        return std::make_pair(it, false);
-    }
 
     // Lookup
 
