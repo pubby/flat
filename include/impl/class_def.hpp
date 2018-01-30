@@ -54,7 +54,6 @@ public:
         { this->clear(); this->insert(ilist); }
 
     Container container;
-private:
     Compare comp;
 
 #undef FLATNAME
