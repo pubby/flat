@@ -51,7 +51,7 @@ public:
     FLATNAME& operator=(FLATNAME const&) = default;
     FLATNAME& operator=(FLATNAME&&) = default;
     FLATNAME& operator=(std::initializer_list<value_type> ilist)
-        { this->clear(); this->insert(ilist); }
+        { this->clear(); this->insert(ilist); return *this; }
 
     Container container;
     Compare comp;
