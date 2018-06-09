@@ -113,6 +113,17 @@ class flat_set
 template<typename T, typename Compare = std::less<void>>
 using vector_set = flat_set<std::vector<T>, Compare>;
 
+template<typename Container, typename Compare>
+inline bool operator==(const flat_set<Container, Compare>& lhs, const flat_set<Container, Compare>& rhs)
+{
+  return lhs.container == rhs.container;
+}
+template<typename Container, typename Compare>
+inline bool operator!=(const flat_set<Container, Compare>& lhs, const flat_set<Container, Compare>& rhs)
+{
+  return lhs.container != rhs.container;
+}
+
 } // namespace fc
 
 #endif
