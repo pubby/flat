@@ -76,7 +76,7 @@ public:
 
     // Lookup
 
-    template<typename K> 
+    template<typename K>
     size_type count(K const& key) const
     {
         auto it_pair = self()->equal_range(key);
@@ -87,17 +87,30 @@ public:
 } // namespace impl
 
 template<typename Container, typename Compare = std::less<void>>
-class flat_multiset 
-: public impl::flat_multiset_base<flat_multiset<Container, Compare>, 
+class flat_multiset
+: public impl::flat_multiset_base<flat_multiset<Container, Compare>,
     typename Container::value_type, Container, Compare>
 {
 #define FLATNAME flat_multiset
 #define FLATKEY typename Container::value_type
 #include "impl/class_def.hpp"
+#undef FLATNAME
+#undef FLATKEY
 };
 
 template<typename T, typename Compare = std::less<void>>
 using vector_multiset = flat_multiset<std::vector<T>, Compare>;
+
+template<typename Container, typename Compare>
+inline bool operator==(const flat_multiset<Container, Compare>& lhs, const flat_multiset<Container, Compare>& rhs)
+{
+  return lhs.container == rhs.container;
+}
+template<typename Container, typename Compare>
+inline bool operator!=(const flat_multiset<Container, Compare>& lhs, const flat_multiset<Container, Compare>& rhs)
+{
+  return lhs.container != rhs.container;
+}
 
 } // namespace fc
 

@@ -154,7 +154,7 @@ public:
 
     // Iterators
 
-    const_iterator cbegin() const 
+    const_iterator cbegin() const
     noexcept(noexcept(std::declval<D>().container.cbegin()))
         { return self()->container.cbegin(); }
     const_iterator begin() const
@@ -174,23 +174,23 @@ public:
     noexcept(noexcept(std::declval<D>().container.end()))
         { return self()->container.end(); }
 
-    const_iterator crbegin() const
+    const_reverse_iterator crbegin() const
     noexcept(noexcept(std::declval<D>().container.crbegin()))
         { return self()->container.crbegin(); }
-    const_iterator rbegin() const
+    const_reverse_iterator rbegin() const
     noexcept(noexcept(std::declval<D>().container.rbegin()))
         { return self()->container.rbegin(); }
-    iterator rbegin()
+    reverse_iterator rbegin()
     noexcept(noexcept(std::declval<D>().container.rbegin()))
         { return self()->container.rbegin(); }
 
-    const_iterator crend() const
+    const_reverse_iterator crend() const
     noexcept(noexcept(std::declval<D>().container.crend()))
         { return self()->container.crend(); }
-    const_iterator rend() const
+    const_reverse_iterator rend() const
     noexcept(noexcept(std::declval<D>().container.rend()))
         { return self()->container.rend(); }
-    iterator rend()
+    reverse_iterator rend()
     noexcept(noexcept(std::declval<D>().container.rend()))
         { return self()->container.rend(); }
 
@@ -238,7 +238,7 @@ public:
         { return self()->container.erase(pos.underlying); }
 
     iterator erase(const_iterator first, const_iterator last)
-    noexcept(noexcept(std::declval<D>().container.erase(first.underlying, 
+    noexcept(noexcept(std::declval<D>().container.erase(first.underlying,
                                                         last.underlying)))
         { return self()->container.erase(first.underlying, last.underlying); }
 
@@ -334,7 +334,7 @@ protected:
             self()->container.end(),
             self()->value_comp());
         std::inplace_merge(
-            self()->container.begin(), 
+            self()->container.begin(),
             self()->container.begin()+i,
             self()->container.end());
         // Note: Not calling unique here. Do it in the caller.
