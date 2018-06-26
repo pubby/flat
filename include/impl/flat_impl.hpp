@@ -86,9 +86,9 @@ public:
         { this->underlying -= d; return *this; }
 
     flat_iterator operator+(difference_type d) const
-        { flat_iterator it; return it += d; }
+        { return this->underlying + d; }
     flat_iterator operator-(difference_type d) const
-        { flat_iterator it; return it -= d; }
+        { return this->underlying - d; }
 
     difference_type operator-(flat_iterator const& o) const
         { return this->underlying - o.underlying; }
