@@ -59,3 +59,7 @@ For safety reasons, flat container iterators are const by default. To bypass thi
 
     for(auto it = v.begin(); it != v.end(); ++it)
         (*v.underlying) *= 2;
+
+#### Helper Types
+
+The directory `include_extra` contains convenience typedefs for use with Boost.Container.
