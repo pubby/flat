@@ -120,24 +120,28 @@ public:
 template<typename Pair, typename Compare = std::less<void>>
 struct first_compare
 {
+	first_compare(const Compare& comp) :
+		compare(comp) {
+	}
+
     bool operator()(Pair const& lhs, Pair const& rhs) const
     {
-        return compare(lhs.first, rhs.first);
+        return compare.get()(lhs.first, rhs.first);
     }
 
     bool operator()(typename Pair::first_type const& lhs,
                     Pair const& rhs) const
     {
-        return compare(lhs, rhs.first);
+        return compare.get()(lhs, rhs.first);
     }
 
     bool operator()(Pair const& lhs,
                     typename Pair::first_type const& rhs) const
     {
-        return compare(lhs.first, rhs);
+        return compare.get()(lhs.first, rhs);
     }
 
-    Compare compare;
+    std::reference_wrapper<const Compare> compare;
 };
 
 template<typename D, typename Key,
@@ -150,7 +154,7 @@ class flat_container_base
     D* self() { return static_cast<D*>(this); }
 public:
     using key_compare = Compare;
-    key_compare key_comp() const { return self()->comp; }
+    const key_compare &key_comp() const { return self()->comp; }
 
     // Iterators
 
