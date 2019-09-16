@@ -22,7 +22,7 @@ class flat_multimap_base
     D* self() { return static_cast<D*>(this); }
 public:
     using value_compare = first_compare<value_type, Compare>;
-    value_compare value_comp() const { return value_compare(); }
+    value_compare value_comp() const { return value_compare(B::key_comp()); }
 
     using B::insert;
     using B::erase;
