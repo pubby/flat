@@ -9,7 +9,7 @@ public:
 #include "container_traits.hpp"
 
     FLATNAME() = default;
-    explicit FLATNAME(Compare const& comp) : comp(comp), container() {}
+    explicit FLATNAME(Compare const& comp) : container(), comp(comp) {}
 
     template<class InputIt>
     FLATNAME(InputIt first, InputIt last)
