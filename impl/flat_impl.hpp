@@ -376,7 +376,8 @@ public:
     // Modifiers
 
     template<class P>
-    iterator insert(const_iterator hint, P&& value)
+    std::enable_if_t<std::is_constructible<value_type, P&&>::value, iterator>
+    insert(const_iterator hint, P&& value)
         { return insert(std::forward<P>(value)).first; }
 
     // Lookup

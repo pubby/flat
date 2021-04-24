@@ -16,11 +16,11 @@ class flat_map_base
 : public flat_container_base<D, Key, Container, Compare>
 {
 #include "impl/container_traits.hpp"
-    using mapped_type = typename value_type::second_type;
     using B = flat_container_base<D, Key, Container, Compare>;
     D const* self() const { return static_cast<D const*>(this); }
     D* self() { return static_cast<D*>(this); }
 public:
+    using mapped_type = typename value_type::second_type;
     using value_compare = first_compare<value_type, Compare>;
     value_compare value_comp() const { return value_compare(B::key_comp()); }
 
@@ -185,11 +185,11 @@ class flat_map_base<D, Key, Container, Compare,
 : public flat_map_base<D, Key, Container, Compare, int>
 {
 #include "impl/container_traits.hpp"
-    using mapped_type = typename value_type::second_type;
     using B = flat_map_base<D, Key, Container, Compare, int>;
     D const* self() const { return static_cast<D const*>(this); }
     D* self() { return static_cast<D*>(this); }
 public:
+    using mapped_type = typename value_type::second_type;
 
     using B::insert;
     using B::count;
