@@ -196,6 +196,20 @@ public:
 
     // Modifiers
 
+    template<class K>
+    mapped_type const* has(K const& key) const
+    {
+        const_iterator it = self()->find(key);
+        return it == self()->end() ? nullptr : &it.underlying->second;
+    }
+
+    template<class K>
+    mapped_type* has(K const& key)
+    {
+        iterator it = self()->find(key);
+        return it == self()->end() ? nullptr : &it.underlying->second;
+    }
+
     template<class P>
     std::pair<iterator, bool> insert(P&& value)
     {
