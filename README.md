@@ -16,6 +16,11 @@ This was part of a C++ standard proposal and I recommend that you read it for mo
 - `fc::vector_set`
 - `fc::vector_multiset`
 
+#### Differences from Standard Containrs
+
+- Due to using vectors internally, map's `value_type` is `std::pair<K, V>` instead of `std::pair<const K, V>`, and all iterators are `const_iterators`, by default. It's still possible to modify the stored values though - see below.
+- Flat containers have `O(log(n))` find complexity, but `O(n log(n))` insertion and deletion. They're ideal for when one doesn't need to store very much data, or for when one performs finds far more often than lookups.
+
 #### New Member Functions
 - `has`
    - `map.has(key)` returns a pointer to key's mapped value if it exists, otherwise returns null.
@@ -60,6 +65,16 @@ For safety reasons, flat container iterators are const by default. To bypass thi
     for(auto it = v.begin(); it != v.end(); ++it)
         (*v.underlying) *= 2;
 
+For maps, one can also use `.has` and `.operator[]`:
+
+*Example: using `.has` and `.operator[]`*
+
+    map["foo"] = "bar";
+
+    if(std::string* value = map.find("qux"))
+        *value = "baz";
+    
+
 #### Helper Types
 
-The directory `include_extra` contains convenience typedefs for use with Boost.Container.
+The directory `include_extra` contains convenience typedefs for use with Boost.Container. These typedefs make it trivial to use flat containers that use stack-based allocation instead of the heap.
