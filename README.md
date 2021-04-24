@@ -71,7 +71,7 @@ For maps, one can also use `.has` and `.operator[]`:
 
     map["foo"] = "bar";
 
-    if(std::string* value = map.find("qux"))
+    if(std::string* value = map.has("qux"))
         *value = "baz";
     
 
