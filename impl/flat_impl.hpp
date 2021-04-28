@@ -157,14 +157,14 @@ struct first_compare<Pair, Compare, std::void_t<typename Compare::is_transparent
 template<typename D, typename Key,
          typename Container, typename Compare,
          typename = void>
-class flat_container_base
+class flat_container_base : private Compare
 {
 #include "container_traits.hpp"
     D const* self() const { return static_cast<D const*>(this); }
     D* self() { return static_cast<D*>(this); }
 public:
     using key_compare = Compare;
-    key_compare const& key_comp() const { return self()->comp; }
+    key_compare const& key_comp() const { return *this; }
 
     // Iterators
 
