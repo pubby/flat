@@ -10,6 +10,9 @@
 #include <iterator>
 #include <utility>
 #include <vector>
+#if __cplusplus >= 202002L
+#include <compare>
+#endif
 
 namespace fc {
 
@@ -95,16 +98,13 @@ public:
 
     reference operator[](difference_type d) const { return *(*this + d); }
 
+#if __cplusplus >= 202002L
+    auto operator<=>(flat_iterator const&) const = default;
+#else
     auto operator==(flat_iterator const& o) const
-    {
-        using namespace std::rel_ops;
-        return this->underlying == o.underlying;
-    }
+        { return this->underlying == o.underlying; }
     auto operator!=(flat_iterator const& o) const
-    {
-        using namespace std::rel_ops;
-        return this->underlying != o.underlying;
-    }
+        { return this->underlying != o.underlying; }
     auto operator<(flat_iterator const& o) const
         { return this->underlying < o.underlying; }
     auto operator<=(flat_iterator const& o) const
@@ -113,6 +113,7 @@ public:
         { return this->underlying > o.underlying; }
     auto operator>=(flat_iterator const& o) const
         { return this->underlying >= o.underlying; }
+#endif
 
     It underlying;
 };
