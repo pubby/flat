@@ -6,6 +6,7 @@
 #define LIB_FLAT_FLAT_MAP_HPP
 
 #include "impl/flat_impl.hpp"
+#include <stdexcept>
 
 namespace fc {
 namespace impl {

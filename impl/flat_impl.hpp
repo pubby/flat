@@ -10,7 +10,7 @@
 #include <iterator>
 #include <utility>
 #include <vector>
-#if __cplusplus >= 202002L
+#if __cplusplus >= 202002L && __cpp_lib_three_way_comparison >= 201907L
 #include <compare>
 #endif
 
@@ -98,7 +98,7 @@ public:
 
     reference operator[](difference_type d) const { return *(*this + d); }
 
-#if __cplusplus >= 202002L
+#if __cplusplus >= 202002L && __cpp_lib_three_way_comparison >= 201907L
     auto operator<=>(flat_iterator const&) const = default;
 #else
     auto operator==(flat_iterator const& o) const
