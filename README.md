@@ -19,7 +19,7 @@ This was part of a C++ standard proposal and I recommend that you read it for mo
 #### Differences from Standard Containrs
 
 - Due to using vectors internally, map's `value_type` is `std::pair<K, V>` instead of `std::pair<const K, V>`, and all iterators are `const_iterators`, by default. It's still possible to modify the stored values though - see below.
-- Flat containers have `O(log(n))` find complexity, but `O(n log(n))` insertion and deletion. They're ideal for when one doesn't need to store very much data, or for when one performs finds far more often than lookups.
+- Flat containers have `O(log(n))` find complexity, but `O(n log(n))` insertion and deletion. They're ideal for when one doesn't need to store very much data, or for when one performs finds far more often than insertions.
 
 #### New Member Functions
 - `has`
