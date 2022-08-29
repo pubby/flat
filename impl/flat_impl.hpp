@@ -221,10 +221,10 @@ public:
 
     // Modifiers
 
-    iterator insert(const_iterator hint, value_type const& value)
+    iterator insert(const_iterator /*hint*/, value_type const& value)
         { return self()->insert(value).first; }
 
-    iterator insert(const_iterator hint, value_type&& value)
+    iterator insert(const_iterator /*hint*/, value_type&& value)
         { return self()->insert(std::move(value)).first; }
 
     template<class InputIt>
@@ -245,7 +245,7 @@ public:
         { return self()->insert(value_type(std::forward<Args>(args)...)); }
 
     template<typename... Args>
-    auto emplace_hint(const_iterator hint, Args&&... args)
+    auto emplace_hint(const_iterator /*hint*/, Args&&... args)
         { return self()->insert(value_type(std::forward<Args>(args)...)); }
 
     iterator erase(const_iterator pos)
@@ -378,7 +378,7 @@ public:
 
     template<class P>
     std::enable_if_t<std::is_constructible<value_type, P&&>::value, iterator>
-    insert(const_iterator hint, P&& value)
+    insert(const_iterator /*hint*/, P&& value)
         { return insert(std::forward<P>(value)).first; }
 
     // Lookup

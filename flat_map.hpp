@@ -91,12 +91,12 @@ public:
         { return insert_or_assign_(std::move(key), std::forward<M>(obj)); }
 
     template<typename M>
-    std::pair<iterator, bool> insert_or_assign(const_iterator hint,
+    std::pair<iterator, bool> insert_or_assign(const_iterator /*hint*/,
                                                key_type const& key, M&& obj)
         { return insert_or_assign(key, std::forward<M>(obj)); }
 
     template<typename M>
-    std::pair<iterator, bool> insert_or_assign(const_iterator hint,
+    std::pair<iterator, bool> insert_or_assign(const_iterator /*hint*/,
                                                key_type&& key, M&& obj)
         { return insert_or_assign(std::move(key), std::forward<M>(obj)); }
 
@@ -109,12 +109,12 @@ public:
         { return try_emplace_(std::move(key), std::forward<Args>(args)...); }
 
     template<typename... Args>
-    iterator try_emplace(const_iterator hint,
+    iterator try_emplace(const_iterator /*hint*/,
                          key_type const& key, Args&&... args)
         { return try_emplace_(key, std::forward<Args>(args)...).first; }
 
     template<typename... Args>
-    iterator try_emplace(const_iterator hint, key_type&& key, Args&&... args)
+    iterator try_emplace(const_iterator /*hint*/, key_type&& key, Args&&... args)
     {
         return try_emplace_(std::move(key),
                             std::forward<Args>(args)...).first;
