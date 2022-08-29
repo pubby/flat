@@ -25,6 +25,7 @@ public:
     using value_compare = first_compare<value_type, Compare>;
     value_compare value_comp() const { return value_compare(B::key_comp()); }
 
+    using B::B;
     using B::insert;
     using B::erase;
 
@@ -192,6 +193,7 @@ class flat_map_base<D, Key, Container, Compare,
 public:
     using mapped_type = typename value_type::second_type;
 
+    using B::B;
     using B::insert;
     using B::count;
 
@@ -240,6 +242,8 @@ class flat_map
 : public impl::flat_map_base<flat_map<Container, Compare>,
     typename Container::value_type::first_type, Container, Compare>
 {
+    using B = impl::flat_map_base<flat_map<Container, Compare>,
+        typename Container::value_type::first_type, Container, Compare>;
 #define FLATNAME flat_map
 #define FLATKEY typename Container::value_type::first_type
 #include "impl/class_def.hpp"
