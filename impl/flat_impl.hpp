@@ -100,7 +100,7 @@ public:
 
 #if __cplusplus >= 202002L && __cpp_lib_three_way_comparison >= 201907L
     auto operator<=>(flat_iterator const&) const = default;
-#else
+#endif
     auto operator==(flat_iterator const& o) const
         { return this->underlying == o.underlying; }
     auto operator!=(flat_iterator const& o) const
@@ -113,7 +113,6 @@ public:
         { return this->underlying > o.underlying; }
     auto operator>=(flat_iterator const& o) const
         { return this->underlying >= o.underlying; }
-#endif
 
     It underlying;
 };
@@ -166,6 +165,9 @@ class flat_container_base : private Compare
 public:
     using key_compare = Compare;
     key_compare const& key_comp() const { return *this; }
+
+    flat_container_base() = default;
+    explicit flat_container_base(Compare const& c) : Compare(c) {}
 
     // Iterators
 
@@ -368,6 +370,7 @@ class flat_container_base<D, Key, Container, Compare,
     using B = flat_container_base<D, Key, Container, Compare, int>;
 public:
 
+    using B::B;
     using B::insert;
     using B::find;
     using B::lower_bound;
