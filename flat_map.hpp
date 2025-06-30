@@ -251,14 +251,9 @@ template<typename Key, typename T, typename Compare = std::less<void>>
 using vector_map = flat_map<std::vector<std::pair<Key, T>>, Compare>;
 
 template<typename Container, typename Compare>
-inline bool operator==(const flat_map<Container, Compare>& lhs, const flat_map<Container, Compare>& rhs)
+inline auto operator<=>(const flat_map<Container, Compare>& lhs, const flat_map<Container, Compare>& rhs)
 {
-  return lhs.container == rhs.container;
-}
-template<typename Container, typename Compare>
-inline bool operator!=(const flat_map<Container, Compare>& lhs, const flat_map<Container, Compare>& rhs)
-{
-  return lhs.container != rhs.container;
+  return lhs.container <=> rhs.container;
 }
 
 } // namespace fc
