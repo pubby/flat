@@ -106,14 +106,9 @@ template<typename T, typename Compare = std::less<void>>
 using vector_multiset = flat_multiset<std::vector<T>, Compare>;
 
 template<typename Container, typename Compare>
-inline bool operator==(const flat_multiset<Container, Compare>& lhs, const flat_multiset<Container, Compare>& rhs)
+inline auto operator<=>(const flat_multiset<Container, Compare>& lhs, const flat_multiset<Container, Compare>& rhs)
 {
-  return lhs.container == rhs.container;
-}
-template<typename Container, typename Compare>
-inline bool operator!=(const flat_multiset<Container, Compare>& lhs, const flat_multiset<Container, Compare>& rhs)
-{
-  return lhs.container != rhs.container;
+  return lhs.container <=> rhs.container;
 }
 
 } // namespace fc

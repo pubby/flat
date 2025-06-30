@@ -122,14 +122,9 @@ using vector_multimap
     = flat_multimap<std::vector<std::pair<Key, T>>, Compare>;
 
 template<typename Container, typename Compare>
-inline bool operator==(const flat_multimap<Container, Compare>& lhs, const flat_multimap<Container, Compare>& rhs)
+inline auto operator<=>(const flat_multimap<Container, Compare>& lhs, const flat_multimap<Container, Compare>& rhs)
 {
-  return lhs.container == rhs.container;
-}
-template<typename Container, typename Compare>
-inline bool operator!=(const flat_multimap<Container, Compare>& lhs, const flat_multimap<Container, Compare>& rhs)
-{
-  return lhs.container != rhs.container;
+  return lhs.container <=> rhs.container;
 }
 
 } // namespace fc
